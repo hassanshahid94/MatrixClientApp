@@ -8,17 +8,18 @@
 import SwiftUI
 
 struct ContentView: View {
+    @StateObject private var viewModel = MatrixVM(
+            authenticationManager: AuthenticationManagerImp(),
+            roomManager: RoomManagerImp(), messageManager:
+                MessageManagerImp())
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        NavigationView {
+            if viewModel.isAuthenticated {
+                HomeScreen(viewModel: viewModel)
+            } else {
+                LoginScreen(viewModel: viewModel)
+            }
         }
-        .padding()
     }
-}
-
-#Preview {
-    ContentView()
 }
