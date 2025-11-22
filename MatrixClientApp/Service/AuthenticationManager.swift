@@ -12,9 +12,9 @@ protocol AuthenticationManager {
 }
 
 class AuthenticationManagerImp: AuthenticationManager {
-    private let webService: WebServiceProtocol
+    private let webService: WebService
     
-    init(webService: WebServiceProtocol = WebService.shared) {
+    init(webService: WebService = WebServiceImp.shared) {
         self.webService = webService
     }
     

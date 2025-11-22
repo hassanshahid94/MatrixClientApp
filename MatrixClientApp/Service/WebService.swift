@@ -14,7 +14,7 @@ enum HTTPMethod: String {
     case delete = "DELETE"
 }
 
-protocol WebServiceProtocol {
+protocol WebService {
     func request<T: Decodable>(
         endpoint: String,
         method: HTTPMethod,
@@ -30,8 +30,8 @@ protocol WebServiceProtocol {
     ) async throws -> [String: Any]
 }
 
-class WebService: WebServiceProtocol {
-    static let shared = WebService()
+class WebServiceImp: WebService {
+    static let shared = WebServiceImp()
     private let baseURL = "https://matrix.7aeb1508.sshmatrix.com"
     
     private init() {}

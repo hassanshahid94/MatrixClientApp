@@ -12,9 +12,9 @@ protocol MessageManager {
 }
 
 class MessageManagerImp: MessageManager {
-    private let webService: WebServiceProtocol
+    private let webService: WebService
     
-    init(webService: WebServiceProtocol = WebService.shared) {
+    init(webService: WebService = WebServiceImp.shared) {
         self.webService = webService
     }
     
