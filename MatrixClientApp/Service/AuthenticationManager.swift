@@ -8,7 +8,7 @@
 import Foundation
 
 protocol AuthenticationManager {
-    func login(username: String, password: String) async throws -> AuthResponse
+    func login(username: String, password: String) async throws -> LoginResponse
 }
 
 class AuthenticationManagerImp: AuthenticationManager {
@@ -18,18 +18,23 @@ class AuthenticationManagerImp: AuthenticationManager {
         self.webService = webService
     }
     
-    func login(username: String, password: String) async throws -> AuthResponse {
+    func login(username: String, password: String) async throws -> LoginResponse {
         let body: [String: Any] = [
-            "type": "m.login.password",
-            "user": username,
-            "password": password
+            "identifier": [
+                "type": "m.id.user",
+                "user": username
+            ],
+            "initial_device_display_name": "iPhone",
+            "password": password,
+            "type": "m.login.password"
         ]
         
-        return try await webService.request(
-            endpoint: "/_matrix/client/r0/login",
+        let response: LoginResponse = try await webService.request(
+            endpoint: "/_matrix/client/v3/login",
             method: .post,
             body: body,
             headers: nil
         )
+        return response
     }
 }
