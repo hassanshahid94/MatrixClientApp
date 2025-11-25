@@ -8,7 +8,7 @@
 import Foundation
 
 protocol MessageManager {
-    func fetchMessages(roomId: String, accessToken: String) async throws -> [MatrixMessage]
+    func fetchMessages(roomId: String, accessToken: String) async throws -> [TimelineEvent]
 }
 
 class MessageManagerImp: MessageManager {
@@ -18,36 +18,83 @@ class MessageManagerImp: MessageManager {
         self.webService = webService
     }
     
-    func fetchMessages(roomId: String, accessToken: String) async throws -> [MatrixMessage] {
-        let encodedRoomId = roomId.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? roomId
+    func fetchMessages(roomId: String, accessToken: String) async throws -> [TimelineEvent] {
         let headers = ["Authorization": "Bearer \(accessToken)"]
         
-        let json: [String: Any] = try await webService.requestJSON(
-            endpoint: "/_matrix/client/r0/rooms/\(encodedRoomId)/messages?dir=b&limit=50",
+        let response: MessagesResponse = try await webService.request(
+            endpoint: "/_matrix/client/v3/rooms/\(roomId)/messages?dir=b&limit=50",
             method: .get,
             body: nil,
             headers: headers
         )
         
-        guard let chunk = json["chunk"] as? [[String: Any]] else {
-            return []
+        return response.chunk.compactMap { event in
+            parseEvent(event)
+        }
+    }
+    
+    private func parseEvent(_ event: RoomEvent) -> TimelineEvent? {
+        switch event.type {
+        case "m.room.message":
+            return parseMessageEvent(event)
+            
+        case "m.room.member":
+            return parseMembershipEvent(event)
+            
+        default:
+            return nil
+        }
+    }
+    
+    private func parseMessageEvent(_ event: RoomEvent) -> TimelineEvent? {
+        guard let body = event.content.body else { return nil }
+        
+        let displayName = extractDisplayName(from: event.sender)
+        
+        let messageEvent = MessageEvent(
+            id: event.eventId,
+            sender: event.sender,
+            displayName: displayName,
+            body: body,
+            timestamp: event.originServerTs
+        )
+        
+        return .message(messageEvent)
+    }
+    
+    private func parseMembershipEvent(_ event: RoomEvent) -> TimelineEvent? {
+        guard let membership = event.content.membership else { return nil }
+        
+        let displayName = event.content.displayname ?? extractDisplayName(from: event.sender)
+        
+        let action: MembershipEvent.MembershipAction
+        switch membership {
+        case "join":
+            action = .joined
+        case "leave":
+            action = .left
+        case "invite":
+            action = .invited
+        default:
+            return nil
         }
         
-        return chunk.compactMap { eventDict in
-            guard let eventId = eventDict["event_id"] as? String,
-                  let sender = eventDict["sender"] as? String,
-                  let content = eventDict["content"] as? [String: Any],
-                  let body = content["body"] as? String,
-                  let timestamp = eventDict["origin_server_ts"] as? Int64 else {
-                return nil
-            }
-            
-            return MatrixMessage(
-                eventId: eventId,
-                sender: sender,
-                body: body,
-                timestamp: timestamp
-            )
+        let membershipEvent = MembershipEvent(
+            id: event.eventId,
+            sender: event.sender,
+            displayName: displayName,
+            action: action,
+            timestamp: event.originServerTs
+        )
+        
+        return .membershipChange(membershipEvent)
+    }
+    
+    private func extractDisplayName(from userId: String) -> String {
+        // Extract username from @username:domain format
+        if let username = userId.split(separator: "@").last?.split(separator: ":").first {
+            return String(username)
         }
+        return userId
     }
 }

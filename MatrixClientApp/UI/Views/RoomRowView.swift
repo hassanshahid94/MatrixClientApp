@@ -9,19 +9,19 @@
 import SwiftUI
 
 struct RoomRowView: View {
-    let room: MatrixRoom
+    let room: PublicRoom
     
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
-            Text(room.name ?? room.roomId)
+            Text(room.name)
                 .font(.headline)
             
-            if let topic = room.topic, !topic.isEmpty {
-                Text(topic)
-                    .font(.subheadline)
-                    .foregroundColor(.secondary)
-                    .lineLimit(2)
-            }
+//            if let topic = room.canonicalAlias {
+//                Text(topic)
+//                    .font(.subheadline)
+//                    .foregroundColor(.secondary)
+//                    .lineLimit(2)
+//            }
             
             HStack {
                 Image(systemName: "person.2.fill")

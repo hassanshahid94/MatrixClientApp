@@ -8,7 +8,7 @@
 import Foundation
 
 protocol RoomManager {
-    func fetchPublicRooms(accessToken: String) async throws -> [MatrixRoom]
+    func fetchPublicRooms(accessToken: String) async throws -> [PublicRoom]
     func joinRoom(roomId: String, accessToken: String) async throws
 }
 
@@ -19,37 +19,24 @@ class RoomManagerImp: RoomManager {
         self.webService = webService
     }
     
-    func fetchPublicRooms(accessToken: String) async throws -> [MatrixRoom] {
+    func fetchPublicRooms(accessToken: String) async throws -> [PublicRoom] {
         let headers = ["Authorization": "Bearer \(accessToken)"]
         
-        let json: [String: Any] = try await webService.requestJSON(
-            endpoint: "/_matrix/client/r0/publicRooms",
+        let response: PublicRoomResponse = try await webService.request(
+            endpoint: "/_matrix/client/v3/publicRooms",
             method: .get,
             body: nil,
             headers: headers
         )
         
-        guard let chunk = json["chunk"] as? [[String: Any]] else {
-            return []
-        }
-        
-        return chunk.compactMap { roomDict in
-            guard let roomId = roomDict["room_id"] as? String else { return nil }
-            return MatrixRoom(
-                roomId: roomId,
-                name: roomDict["name"] as? String,
-                topic: roomDict["topic"] as? String,
-                numJoinedMembers: roomDict["num_joined_members"] as? Int ?? 0
-            )
-        }
+        return response.chunk
     }
     
     func joinRoom(roomId: String, accessToken: String) async throws {
-        let encodedRoomId = roomId.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed) ?? roomId
         let headers = ["Authorization": "Bearer \(accessToken)"]
         
-        let _: [String: Any] = try await webService.requestJSON(
-            endpoint: "/_matrix/client/r0/rooms/\(encodedRoomId)/join",
+        let _: JoinRoomResponse = try await webService.request(
+            endpoint: "_matrix/client/v3/join/\(roomId)",
             method: .post,
             body: [:],
             headers: headers

@@ -10,12 +10,12 @@ import SwiftUI
 
 struct RoomDetailScreen: View {
     @ObservedObject var viewModel: MatrixVM
-    let room: MatrixRoom
+    let room: PublicRoom
     @State private var hasJoined = false
     
     var body: some View {
         VStack {
-            if viewModel.isLoading && viewModel.messages.isEmpty {
+            if viewModel.isLoading && viewModel.timelineEvents.isEmpty {
                 ProgressView("Loading messages...")
             } else if !hasJoined {
                 VStack(spacing: 16) {
@@ -33,7 +33,7 @@ struct RoomDetailScreen: View {
                     }
                     .buttonStyle(.borderedProminent)
                 }
-            } else if viewModel.messages.isEmpty {
+            } else if viewModel.timelineEvents.isEmpty {
                 VStack(spacing: 16) {
                     Image(systemName: "bubble.left.and.bubble.right")
                         .font(.system(size: 60))
@@ -43,23 +43,24 @@ struct RoomDetailScreen: View {
                         .foregroundColor(.secondary)
                 }
             } else {
+                // Display the timeline
                 ScrollView {
-                    LazyVStack(spacing: 12) {
-                        ForEach(viewModel.messages.reversed()) { message in
-                            MessageView(message: message)
+                    LazyVStack(spacing: 8) {
+                        ForEach(viewModel.timelineEvents.reversed()) { event in
+                            TimelineEventView(event: event)
                         }
                     }
                     .padding()
                 }
             }
         }
-        .navigationTitle(room.name ?? "Room")
+        .navigationTitle(room.name)
         .navigationBarTitleDisplayMode(.inline)
         .task {
+            // Automatically join and fetch messages when view appears
             await viewModel.joinRoom(roomId: room.roomId)
             hasJoined = true
             await viewModel.fetchMessages(roomId: room.roomId)
         }
     }
 }
-

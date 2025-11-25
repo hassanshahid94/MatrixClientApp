@@ -14,8 +14,10 @@ class MatrixVM: ObservableObject {
     @Published var isAuthenticated = false
     @Published var isLoading = false
     @Published var errorMessage: String?
-    @Published var rooms: [MatrixRoom] = []
-    @Published var messages: [MatrixMessage] = []
+    @Published var rooms: [PublicRoom] = []
+    
+    
+    @Published var timelineEvents: [TimelineEvent] = []
     
     private var accessToken: String?
     private var userId: String?
@@ -88,7 +90,7 @@ class MatrixVM: ObservableObject {
         isLoading = true
         
         do {
-            self.messages = try await messageManager.fetchMessages(roomId: roomId, accessToken: token)
+            self.timelineEvents = try await messageManager.fetchMessages(roomId: roomId, accessToken: token)
         } catch {
             self.errorMessage = "Failed to fetch messages: \(error.localizedDescription)"
         }
@@ -101,6 +103,6 @@ class MatrixVM: ObservableObject {
         accessToken = nil
         userId = nil
         rooms = []
-        messages = []
+        timelineEvents = []
     }
 }
