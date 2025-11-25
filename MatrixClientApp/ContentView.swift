@@ -8,17 +8,23 @@
 import SwiftUI
 
 struct ContentView: View {
-    @StateObject private var viewModel = MatrixVM(
-            authenticationManager: AuthenticationManagerImp(),
-            roomManager: RoomManagerImp(), messageManager:
-                MessageManagerImp())
-    
+
+    @StateObject private var loginVM = LoginVM(
+        authenticationManager: AuthenticationManagerImp()
+    )
+    @State private var homeVM: HomeVM?
+
     var body: some View {
         NavigationView {
-            if viewModel.isAuthenticated {
-                HomeScreen(viewModel: viewModel)
+            if loginVM.isAuthenticated {
+                HomeScreen(
+                    homeVM: HomeVM(
+                        roomManager: RoomManagerImp(),
+                        accessToken: loginVM.accessToken!
+                    )
+                )
             } else {
-                LoginScreen(viewModel: viewModel)
+                LoginScreen(loginVM: loginVM)
             }
         }
     }

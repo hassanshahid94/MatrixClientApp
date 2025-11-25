@@ -9,13 +9,13 @@
 import SwiftUI
 
 struct RoomDetailScreen: View {
-    @ObservedObject var viewModel: MatrixVM
+    @ObservedObject var roomDetailVM: RoomDetailVM
     let room: PublicRoom
     @State private var hasJoined = false
     
     var body: some View {
         VStack {
-            if viewModel.isLoading && viewModel.timelineEvents.isEmpty {
+            if roomDetailVM.isLoading && roomDetailVM.timelineEvents.isEmpty {
                 ProgressView("Loading messages...")
             } else if !hasJoined {
                 VStack(spacing: 16) {
@@ -26,14 +26,14 @@ struct RoomDetailScreen: View {
                         .font(.headline)
                     Button("Join Room") {
                         Task {
-                            await viewModel.joinRoom(roomId: room.roomId)
+                            await roomDetailVM.joinRoom(roomId: room.roomId)
                             hasJoined = true
-                            await viewModel.fetchMessages(roomId: room.roomId)
+                            await roomDetailVM.fetchMessages(roomId: room.roomId)
                         }
                     }
                     .buttonStyle(.borderedProminent)
                 }
-            } else if viewModel.timelineEvents.isEmpty {
+            } else if roomDetailVM.timelineEvents.isEmpty {
                 VStack(spacing: 16) {
                     Image(systemName: "bubble.left.and.bubble.right")
                         .font(.system(size: 60))
@@ -46,7 +46,7 @@ struct RoomDetailScreen: View {
                 // Display the timeline
                 ScrollView {
                     LazyVStack(spacing: 8) {
-                        ForEach(viewModel.timelineEvents.reversed()) { event in
+                        ForEach(roomDetailVM.timelineEvents.reversed()) { event in
                             TimelineEventView(event: event)
                         }
                     }
@@ -58,9 +58,9 @@ struct RoomDetailScreen: View {
         .navigationBarTitleDisplayMode(.inline)
         .task {
             // Automatically join and fetch messages when view appears
-            await viewModel.joinRoom(roomId: room.roomId)
+            await roomDetailVM.joinRoom(roomId: room.roomId)
             hasJoined = true
-            await viewModel.fetchMessages(roomId: room.roomId)
+            await roomDetailVM.fetchMessages(roomId: room.roomId)
         }
     }
 }

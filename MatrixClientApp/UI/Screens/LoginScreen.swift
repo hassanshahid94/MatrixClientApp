@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct LoginScreen: View {
-    @ObservedObject var viewModel: MatrixVM
+    @ObservedObject var loginVM: LoginVM
     @State private var username = "a8ce971b"
     @State private var password = "46c8b401"
     
@@ -38,7 +38,7 @@ struct LoginScreen: View {
                 SecureField("Password", text: $password)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                 
-                if let error = viewModel.errorMessage {
+                if let error = loginVM.errorMessage {
                     Text(error)
                         .foregroundColor(.red)
                         .font(.caption)
@@ -46,9 +46,9 @@ struct LoginScreen: View {
                 }
                 
                 Button(action: {
-                    viewModel.login(username: username, password: password)
+                    loginVM.login(username: username, password: password)
                 }) {
-                    if viewModel.isLoading {
+                    if loginVM.isLoading {
                         ProgressView()
                             .progressViewStyle(CircularProgressViewStyle(tint: .white))
                     } else {
@@ -61,7 +61,7 @@ struct LoginScreen: View {
                 .background(Color.blue)
                 .foregroundColor(.white)
                 .cornerRadius(10)
-                .disabled(viewModel.isLoading || username.isEmpty || password.isEmpty)
+                .disabled(loginVM.isLoading || username.isEmpty || password.isEmpty)
             }
             .padding(.horizontal, 40)
             
