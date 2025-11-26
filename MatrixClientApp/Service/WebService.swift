@@ -26,6 +26,7 @@ protocol WebService {
 class WebServiceImp: WebService {
     static let shared = WebServiceImp()
     private let baseURL = "https://matrix.7aeb1508.sshmatrix.com"
+    private let session = SessionManager.shared
     
     private init() {}
     
@@ -35,25 +36,32 @@ class WebServiceImp: WebService {
         body: [String: Any]? = nil,
         headers: [String: String]? = nil
     ) async throws -> T {
+
         let url = URL(string: "\(baseURL)\(endpoint)")!
         var request = URLRequest(url: url)
         request.httpMethod = method.rawValue
         
-        // Set headers
+        // Inject saved access token automatically
+        if let accessToken = session.accessToken {
+            request.setValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
+        }
+        
+        // Additional custom headers
         headers?.forEach { key, value in
             request.setValue(value, forHTTPHeaderField: key)
         }
         
-        // Set default content type for POST/PUT
+        // Set content type
         if method == .post || method == .put {
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         }
         
-        // Set body
+        // Body
         if let body = body {
             request.httpBody = try JSONSerialization.data(withJSONObject: body)
         }
         
+        // Execute request
         let (data, response) = try await URLSession.shared.data(for: request)
         
         guard let httpResponse = response as? HTTPURLResponse else {
@@ -62,11 +70,11 @@ class WebServiceImp: WebService {
         
         guard (200...299).contains(httpResponse.statusCode) else {
             let errorJson = try? JSONSerialization.jsonObject(with: data) as? [String: Any]
-            let errorMsg = errorJson?["error"] as? String ?? "Request failed with status \(httpResponse.statusCode)"
-            throw NetworkError.serverError(errorMsg)
+            let message = errorJson?["error"] as? String ?? "Request failed with status \(httpResponse.statusCode)"
+            throw NetworkError.serverError(message)
         }
         
-        let decoder = JSONDecoder()
-        return try decoder.decode(T.self, from: data)
+        return try JSONDecoder().decode(T.self, from: data)
     }
 }
+

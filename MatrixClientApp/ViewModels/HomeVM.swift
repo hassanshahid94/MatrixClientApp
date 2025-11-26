@@ -15,16 +15,12 @@ class HomeVM: ObservableObject {
     @Published var isLoading = false
     @Published var errorMessage: String?
     
-    // MARK: - Properties
-    let accessToken: String  // Store accessToken here
-    
     // MARK: - Dependencies
     private let roomManager: RoomManager
     
     // MARK: - Initializer
-    init(roomManager: RoomManager, accessToken: String) {
+    init(roomManager: RoomManager) {
         self.roomManager = roomManager
-        self.accessToken = accessToken
         
         Task {
             await fetchPublicRooms()
@@ -37,7 +33,7 @@ class HomeVM: ObservableObject {
         errorMessage = nil
         
         do {
-            self.rooms = try await roomManager.fetchPublicRooms(accessToken: accessToken)
+            self.rooms = try await roomManager.fetchPublicRooms()
         } catch {
             self.errorMessage = "Failed to fetch rooms: \(error.localizedDescription)"
         }

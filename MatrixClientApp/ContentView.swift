@@ -19,8 +19,7 @@ struct ContentView: View {
             if loginVM.isAuthenticated {
                 HomeScreen(
                     homeVM: HomeVM(
-                        roomManager: RoomManagerImp(),
-                        accessToken: loginVM.accessToken!
+                        roomManager: RoomManagerImp()
                     )
                 )
             } else {

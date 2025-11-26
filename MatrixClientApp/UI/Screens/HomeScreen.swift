@@ -31,7 +31,6 @@ struct HomeScreen: View {
                             roomDetailVM: RoomDetailVM(
                                 roomManager: RoomManagerImp(),
                                 messageManager: MessageManagerImp(),
-                                accessToken: homeVM.accessToken,
                                 room: room
                             ),
                             room: room

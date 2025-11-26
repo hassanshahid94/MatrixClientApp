@@ -8,7 +8,7 @@
 import Foundation
 
 protocol MessageManager {
-    func fetchMessages(roomId: String, accessToken: String) async throws -> [TimelineEvent]
+    func fetchMessages(roomId: String) async throws -> [TimelineEvent]
 }
 
 class MessageManagerImp: MessageManager {
@@ -18,14 +18,13 @@ class MessageManagerImp: MessageManager {
         self.webService = webService
     }
     
-    func fetchMessages(roomId: String, accessToken: String) async throws -> [TimelineEvent] {
-        let headers = ["Authorization": "Bearer \(accessToken)"]
+    func fetchMessages(roomId: String) async throws -> [TimelineEvent] {
         
         let response: MessagesResponse = try await webService.request(
             endpoint: "/_matrix/client/v3/rooms/\(roomId)/messages?dir=b&limit=50",
             method: .get,
             body: nil,
-            headers: headers
+            headers: nil
         )
         
         return response.chunk.compactMap { event in

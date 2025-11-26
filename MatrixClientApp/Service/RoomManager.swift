@@ -8,8 +8,8 @@
 import Foundation
 
 protocol RoomManager {
-    func fetchPublicRooms(accessToken: String) async throws -> [PublicRoom]
-    func joinRoom(roomId: String, accessToken: String) async throws
+    func fetchPublicRooms() async throws -> [PublicRoom]
+    func joinRoom(roomId: String) async throws
 }
 
 class RoomManagerImp: RoomManager {
@@ -19,27 +19,23 @@ class RoomManagerImp: RoomManager {
         self.webService = webService
     }
     
-    func fetchPublicRooms(accessToken: String) async throws -> [PublicRoom] {
-        let headers = ["Authorization": "Bearer \(accessToken)"]
-        
+    func fetchPublicRooms() async throws -> [PublicRoom] {
         let response: PublicRoomResponse = try await webService.request(
             endpoint: "/_matrix/client/v3/publicRooms",
             method: .get,
             body: nil,
-            headers: headers
+            headers: nil
         )
         
         return response.chunk
     }
     
-    func joinRoom(roomId: String, accessToken: String) async throws {
-        let headers = ["Authorization": "Bearer \(accessToken)"]
-        
+    func joinRoom(roomId: String) async throws {
         let _: JoinRoomResponse = try await webService.request(
             endpoint: "_matrix/client/v3/join/\(roomId)",
             method: .post,
             body: [:],
-            headers: headers
+            headers: nil
         )
     }
 }
