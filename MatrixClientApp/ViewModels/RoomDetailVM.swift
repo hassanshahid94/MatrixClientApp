@@ -30,38 +30,51 @@ class RoomDetailVM: ObservableObject {
     }
     
     // MARK: - Functions
-    func joinRoom(roomId: String) {
+    func loadRoom(roomId: String) {
         Task {
-            do {
-                try await roomManager.joinRoom(roomId: roomId)
-                self.hasJoinedRoom = true
+            isLoading = true
+            await checkIfJoined(roomId: roomId)
+            
+            if hasJoinedRoom {
                 fetchMessages(roomId: roomId)
-            } catch {
-                self.errorMessage = "Failed to join room: \(error.localizedDescription)"
-                print("Failed to join room: \(error)")
-            }
-        }
-    }
-    
-    func fetchMessages(roomId: String) {
-        isLoading = true
-        errorMessage = nil
-
-        Task {
-            do {
-                self.timelineEvents = try await messageManager.fetchMessages(
-                    roomId: roomId
-                )
-            } catch {
-                self.errorMessage = "Failed to fetch messages: \(error.localizedDescription)"
             }
             
             isLoading = false
         }
     }
     
-//    func loadRoomContent() async {
-//        await joinRoom()
-//        await fetchMessages()
-//    }
+    func joinRoom(roomId: String) {
+        Task {
+            do {
+                isLoading = true
+                try await roomManager.joinRoom(roomId: roomId)
+                self.hasJoinedRoom = true
+                fetchMessages(roomId: roomId)
+            } catch {
+                self.errorMessage = "Failed to join room: \(error.localizedDescription)"
+            }
+            isLoading = false
+        }
+    }
+    
+    func fetchMessages(roomId: String) {
+        Task {
+            do {
+                self.timelineEvents = try await messageManager.fetchMessages(roomId: roomId)
+            } catch {
+                self.errorMessage = "Failed to fetch messages: \(error.localizedDescription)"
+            }
+        }
+    }
+    
+    // MARK: - Private Functions
+    private func checkIfJoined(roomId: String) async {
+        do {
+            let joinedRooms = try await roomManager.fetchJoinedRooms()
+            self.hasJoinedRoom = joinedRooms.contains(roomId)
+        } catch {
+            self.errorMessage = "Failed to check room membership: \(error.localizedDescription)"
+        }
+    }
 }
+

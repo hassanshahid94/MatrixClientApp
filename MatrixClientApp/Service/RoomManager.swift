@@ -10,6 +10,7 @@ import Foundation
 protocol RoomManager {
     func fetchPublicRooms() async throws -> [PublicRoom]
     func joinRoom(roomId: String) async throws
+    func fetchJoinedRooms() async throws -> [String]
 }
 
 class RoomManagerImp: RoomManager {
@@ -37,5 +38,15 @@ class RoomManagerImp: RoomManager {
             body: [:],
             headers: nil
         )
+    }
+    
+    func fetchJoinedRooms() async throws -> [String] {
+        let response: JoinedRoomResponse = try await webService.request(
+            endpoint: "/_matrix/client/v3/joined_rooms",
+            method: .get,
+            body: nil,
+            headers: nil
+        )
+        return response.joinedRooms
     }
 }

@@ -9,26 +9,26 @@
 import SwiftUI
 
 struct RoomDetailScreen: View {
-    @StateObject var roomDetailVM: RoomDetailVM = RoomDetailVM()
+    @StateObject var roomDetailVM = RoomDetailVM()
     let room: PublicRoom
     
     var body: some View {
         ZStack {
-            if (roomDetailVM.isLoading && roomDetailVM.hasJoinedRoom) {
-                LoadingView(message: roomDetailVM.hasJoinedRoom ? "Loading messages..." : "Joining room...")
-            } else if !roomDetailVM.hasJoinedRoom {
-                // Show join button if user has not joined yet
+            if roomDetailVM.isLoading {
+                LoadingView(message: roomDetailVM.hasJoinedRoom ? "Loading messages..." : "Checking room...")
+            }
+            else if !roomDetailVM.hasJoinedRoom {
                 JoinRoomView {
                     roomDetailVM.joinRoom(roomId: room.roomId)
                 }
-            } else if roomDetailVM.timelineEvents.isEmpty {
-                // Empty messages state
+            }
+            else if roomDetailVM.timelineEvents.isEmpty {
                 EmptyStateView(
                     imageName: "bubble.left.and.bubble.right",
                     message: "No messages yet"
                 )
-            } else {
-                // Show messages timeline
+            }
+            else {
                 ScrollView {
                     LazyVStack(spacing: 8) {
                         ForEach(roomDetailVM.timelineEvents.reversed()) { event in
@@ -41,6 +41,9 @@ struct RoomDetailScreen: View {
         }
         .navigationTitle(room.name)
         .navigationBarTitleDisplayMode(.inline)
+        .onAppear {
+            roomDetailVM.loadRoom(roomId: room.roomId)
+        }
         .alert("Error", isPresented: .constant(roomDetailVM.errorMessage != nil)) {
             Button("OK") { roomDetailVM.errorMessage = nil }
         } message: {
@@ -50,6 +53,7 @@ struct RoomDetailScreen: View {
         }
     }
 }
+
 
 // MARK: - Subviews
 
