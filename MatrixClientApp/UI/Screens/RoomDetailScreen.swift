@@ -39,7 +39,6 @@ struct RoomDetailScreen: View {
                 }
             }
         }
-        
         .navigationTitle(room.name)
         .navigationBarTitleDisplayMode(.inline)
         .alert("Error", isPresented: .constant(roomDetailVM.errorMessage != nil)) {

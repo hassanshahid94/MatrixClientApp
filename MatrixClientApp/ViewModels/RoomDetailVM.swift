@@ -29,8 +29,7 @@ class RoomDetailVM: ObservableObject {
         self.messageManager = messageManager
     }
     
-    // MARK: - Public Methods
-    
+    // MARK: - Functions
     func joinRoom(roomId: String) {
         Task {
             do {
@@ -45,10 +44,10 @@ class RoomDetailVM: ObservableObject {
     }
     
     func fetchMessages(roomId: String) {
+        isLoading = true
+        errorMessage = nil
+
         Task {
-            isLoading = true
-            errorMessage = nil
-            
             do {
                 self.timelineEvents = try await messageManager.fetchMessages(
                     roomId: roomId

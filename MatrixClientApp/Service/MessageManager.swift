@@ -48,7 +48,7 @@ class MessageManagerImp: MessageManager {
     private func parseMessageEvent(_ event: RoomEvent) -> TimelineEvent? {
         guard let body = event.content.body else { return nil }
         
-        let displayName = extractDisplayName(from: event.sender)
+        let displayName = event.content.displayname ?? extractDisplayName(from: event.sender)
         
         let messageEvent = MessageEvent(
             id: event.eventId,

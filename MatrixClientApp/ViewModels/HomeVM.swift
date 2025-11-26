@@ -22,22 +22,21 @@ class HomeVM: ObservableObject {
     init(roomManager: RoomManager = RoomManagerImp()) {
         self.roomManager = roomManager
         
-        Task {
-            await fetchPublicRooms()
-        }
+        fetchPublicRooms()
     }
     
-    // MARK: - Public Methods
-    func fetchPublicRooms() async {
+    // MARK: - Functions
+    func fetchPublicRooms() {
         isLoading = true
         errorMessage = nil
         
-        do {
-            self.rooms = try await roomManager.fetchPublicRooms()
-        } catch {
-            self.errorMessage = "Failed to fetch rooms: \(error.localizedDescription)"
+        Task {
+            do {
+                self.rooms = try await roomManager.fetchPublicRooms()
+            } catch {
+                self.errorMessage = "Failed to fetch rooms: \(error.localizedDescription)"
+            }
+            isLoading = false
         }
-        
-        isLoading = false
     }
 }

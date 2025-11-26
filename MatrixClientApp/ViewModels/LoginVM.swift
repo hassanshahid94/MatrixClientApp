@@ -10,16 +10,20 @@ import Foundation
 @MainActor
 class LoginVM: ObservableObject {
     
+    // MARK: - Published Properties
     @Published var isLoading = false
     @Published var errorMessage: String?
     @Published var isAuthenticated = false
     
+    // MARK: - Dependencies
     private let authenticationManager: AuthenticationManager
     
+    // MARK: - Initializer
     init(authenticationManager: AuthenticationManager = AuthenticationManagerImp()) {
         self.authenticationManager = authenticationManager
     }
     
+    // MARK: - Functions
     func login(username: String, password: String) {
         isLoading = true
         errorMessage = nil

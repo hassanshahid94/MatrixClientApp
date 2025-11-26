@@ -51,7 +51,6 @@ struct EventContent: Codable {
 }
 
 // MARK: - UI Models
-
 enum TimelineEvent: Identifiable {
     case message(MessageEvent)
     case membershipChange(MembershipEvent)
@@ -101,6 +100,14 @@ struct MembershipEvent: Identifiable {
     let displayName: String
     let action: MembershipAction
     let timestamp: Int64
+    
+    var formattedTime: String {
+        let date = Date(timeIntervalSince1970: TimeInterval(timestamp) / 1000)
+        let formatter = DateFormatter()
+        formatter.dateFormat = "HH:mm"
+        return formatter.string(from: date)
+    }
+    
     
     enum MembershipAction {
         case joined

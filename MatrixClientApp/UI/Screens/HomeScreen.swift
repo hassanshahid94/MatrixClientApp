@@ -33,7 +33,7 @@ struct HomeScreen: View {
                     }
                 }
                 .refreshable {
-                    await homeVM.fetchPublicRooms()
+                    homeVM.fetchPublicRooms()
                 }
             }
         }
