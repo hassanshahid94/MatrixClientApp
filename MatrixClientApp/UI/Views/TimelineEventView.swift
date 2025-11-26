@@ -17,9 +17,7 @@ struct TimelineEventView: View {
             
         case .membershipChange(let membership):
             MembershipEventView(event: membership)
-            
-        case .systemMessage(let system):
-            SystemMessageView(message: system.message)
+
         }
     }
 }

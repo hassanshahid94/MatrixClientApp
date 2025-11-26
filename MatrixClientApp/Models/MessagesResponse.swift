@@ -18,7 +18,7 @@ struct RoomEvent: Codable {
     let roomId: String?
     let sender: String
     let content: EventContent
-    let originServerTs: Int64
+    let originServerTs: Int
     let eventId: String
     let stateKey: String?
     
@@ -54,7 +54,6 @@ struct EventContent: Codable {
 enum TimelineEvent: Identifiable {
     case message(MessageEvent)
     case membershipChange(MembershipEvent)
-    case systemMessage(SystemEvent)
     
     var id: String {
         switch self {
@@ -62,18 +61,14 @@ enum TimelineEvent: Identifiable {
             return event.id
         case .membershipChange(let event):
             return event.id
-        case .systemMessage(let event):
-            return event.id
         }
     }
     
-    var timestamp: Int64 {
+    var timestamp: Int {
         switch self {
         case .message(let event):
             return event.timestamp
         case .membershipChange(let event):
-            return event.timestamp
-        case .systemMessage(let event):
             return event.timestamp
         }
     }
@@ -84,14 +79,8 @@ struct MessageEvent: Identifiable {
     let sender: String
     let displayName: String
     let body: String
-    let timestamp: Int64
-    
-    var formattedTime: String {
-        let date = Date(timeIntervalSince1970: TimeInterval(timestamp) / 1000)
-        let formatter = DateFormatter()
-        formatter.dateFormat = "HH:mm"
-        return formatter.string(from: date)
-    }
+    let timestamp: Int
+    var date: Date { Date(timeIntervalSince1970: TimeInterval(timestamp) / 1000) }
 }
 
 struct MembershipEvent: Identifiable {
@@ -99,14 +88,8 @@ struct MembershipEvent: Identifiable {
     let sender: String
     let displayName: String
     let action: MembershipAction
-    let timestamp: Int64
-    
-    var formattedTime: String {
-        let date = Date(timeIntervalSince1970: TimeInterval(timestamp) / 1000)
-        let formatter = DateFormatter()
-        formatter.dateFormat = "HH:mm"
-        return formatter.string(from: date)
-    }
+    let timestamp: Int
+    var date: Date { Date(timeIntervalSince1970: TimeInterval(timestamp) / 1000) }
     
     
     enum MembershipAction {
@@ -125,10 +108,4 @@ struct MembershipEvent: Identifiable {
             return "\(displayName) was invited to the room"
         }
     }
-}
-
-struct SystemEvent: Identifiable {
-    let id: String
-    let message: String
-    let timestamp: Int64
 }

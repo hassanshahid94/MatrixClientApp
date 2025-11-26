@@ -39,7 +39,7 @@ struct MessageBubbleView: View {
                     .fixedSize(horizontal: false, vertical: true)
                 
                 // Timestamp
-                Text(message.formattedTime)
+                Text(message.date.messageTime)
                     .font(.caption2)
                     .foregroundColor(.secondary)
             }
@@ -72,23 +72,14 @@ struct MembershipEventView: View {
                 .font(.caption)
                 .foregroundColor(.secondary)
             
+            // Timestamp
+            Text(event.date.messageTime)
+                .font(.caption2)
+                .foregroundColor(.secondary)
+            
             Spacer()
         }
         .padding(.vertical, 4)
         .padding(.horizontal, 12)
-    }
-}
-
-// System Message View
-struct SystemMessageView: View {
-    let message: String
-    
-    var body: some View {
-        Text(message)
-            .font(.caption)
-            .foregroundColor(.secondary)
-            .italic()
-            .frame(maxWidth: .infinity, alignment: .center)
-            .padding(.vertical, 4)
     }
 }
