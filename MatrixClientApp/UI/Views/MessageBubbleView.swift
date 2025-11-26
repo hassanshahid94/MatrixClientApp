@@ -11,41 +11,46 @@ struct MessageBubbleView: View {
     let message: MessageEvent
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 8) {
-            HStack(spacing: 8) {
-                // Avatar circle with first letter
-                Circle()
-                    .fill(Color.purple.opacity(0.7))
-                    .frame(width: 32, height: 32)
-                    .overlay(
-                        Text(String(message.displayName.prefix(1).uppercased()))
-                            .foregroundColor(.white)
-                            .font(.caption)
-                            .fontWeight(.bold)
-                    )
-                
+        HStack(alignment: .top, spacing: 8) {
+            // Avatar circle
+            Circle()
+                .fill(Color.purple.opacity(0.7))
+                .frame(width: 32, height: 32)
+                .overlay(
+                    Text(String(message.displayName.prefix(1).uppercased()))
+                        .foregroundColor(.white)
+                        .font(.caption)
+                        .fontWeight(.bold)
+                )
+            
+            VStack(alignment: .leading, spacing: 4) {
+                // Sender name
                 Text(message.displayName)
-                    .font(.subheadline)
+                    .font(.caption)
                     .fontWeight(.semibold)
+                    .foregroundColor(.secondary)
+                
+                // Message bubble
+                Text(message.body)
+                    .padding(12)
+                    .background(Color.gray.opacity(0.2))
                     .foregroundColor(.primary)
+                    .cornerRadius(16)
+                    .fixedSize(horizontal: false, vertical: true)
                 
-                Spacer()
-                
+                // Timestamp
                 Text(message.formattedTime)
                     .font(.caption2)
                     .foregroundColor(.secondary)
             }
             
-            Text(message.body)
-                .font(.body)
-                .foregroundColor(.primary)
-                .fixedSize(horizontal: false, vertical: true)
-                .padding(.leading, 40) // Align with username, not avatar
+            Spacer()
         }
-        .padding(.vertical, 8)
-        .padding(.horizontal, 12)
+        .padding(.horizontal)
+        .padding(.vertical, 4)
     }
 }
+
 
 // Membership Event View (join/leave)
 struct MembershipEventView: View {
