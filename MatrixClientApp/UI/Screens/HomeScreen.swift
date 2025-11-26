@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct HomeScreen: View {
-    @ObservedObject var homeVM: HomeVM
+    @ObservedObject var homeVM: HomeVM = HomeVM()
     
     var body: some View {
         VStack {
@@ -27,18 +27,9 @@ struct HomeScreen: View {
             } else {
                 List(homeVM.rooms) { room in
                     NavigationLink(
-                        destination: RoomDetailScreen(
-                            roomDetailVM: RoomDetailVM(
-                                roomManager: RoomManagerImp(),
-                                messageManager: MessageManagerImp(),
-                                room: room
-                            ),
-                            room: room
-                        )
+                        destination: RoomDetailScreen(room: room)
                     ) {
-                        RoomRowView(
-                            room: room
-                        )
+                        RoomRowView(room: room)
                     }
                 }
                 .refreshable {

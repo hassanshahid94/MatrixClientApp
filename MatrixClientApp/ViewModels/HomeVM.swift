@@ -19,7 +19,7 @@ class HomeVM: ObservableObject {
     private let roomManager: RoomManager
     
     // MARK: - Initializer
-    init(roomManager: RoomManager) {
+    init(roomManager: RoomManager = RoomManagerImp()) {
         self.roomManager = roomManager
         
         Task {

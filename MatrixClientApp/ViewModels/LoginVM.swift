@@ -16,7 +16,7 @@ class LoginVM: ObservableObject {
     
     private let authenticationManager: AuthenticationManager
     
-    init(authenticationManager: AuthenticationManager) {
+    init(authenticationManager: AuthenticationManager = AuthenticationManagerImp()) {
         self.authenticationManager = authenticationManager
     }
     

@@ -9,19 +9,12 @@ import SwiftUI
 
 struct ContentView: View {
 
-    @StateObject private var loginVM = LoginVM(
-        authenticationManager: AuthenticationManagerImp()
-    )
-    @State private var homeVM: HomeVM?
+    @StateObject private var loginVM = LoginVM()
 
     var body: some View {
         NavigationView {
             if loginVM.isAuthenticated {
-                HomeScreen(
-                    homeVM: HomeVM(
-                        roomManager: RoomManagerImp()
-                    )
-                )
+                HomeScreen()
             } else {
                 LoginScreen(loginVM: loginVM)
             }

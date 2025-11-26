@@ -32,7 +32,7 @@ class RoomManagerImp: RoomManager {
     
     func joinRoom(roomId: String) async throws {
         let _: JoinRoomResponse = try await webService.request(
-            endpoint: "_matrix/client/v3/join/\(roomId)",
+            endpoint: "/_matrix/client/v3/join/\(roomId)",
             method: .post,
             body: [:],
             headers: nil

@@ -22,9 +22,8 @@ class RoomDetailVM: ObservableObject {
     
     // MARK: - Initializer
     init(
-        roomManager: RoomManager,
-        messageManager: MessageManager,
-        room: PublicRoom
+        roomManager: RoomManager = RoomManagerImp(),
+        messageManager: MessageManager = MessageManagerImp()
     ) {
         self.roomManager = roomManager
         self.messageManager = messageManager
@@ -32,29 +31,34 @@ class RoomDetailVM: ObservableObject {
     
     // MARK: - Public Methods
     
-    func joinRoom(roomId: String) async {
-        do {
-            try await roomManager.joinRoom(roomId: roomId)
-            self.hasJoinedRoom = true
-        } catch {
-            self.errorMessage = "Failed to join room: \(error.localizedDescription)"
-            print("Failed to join room: \(error)")
+    func joinRoom(roomId: String) {
+        Task {
+            do {
+                try await roomManager.joinRoom(roomId: roomId)
+                self.hasJoinedRoom = true
+                fetchMessages(roomId: roomId)
+            } catch {
+                self.errorMessage = "Failed to join room: \(error.localizedDescription)"
+                print("Failed to join room: \(error)")
+            }
         }
     }
     
-    func fetchMessages(roomId: String) async {
-        isLoading = true
-        errorMessage = nil
-        
-        do {
-            self.timelineEvents = try await messageManager.fetchMessages(
-                roomId: roomId
-            )
-        } catch {
-            self.errorMessage = "Failed to fetch messages: \(error.localizedDescription)"
+    func fetchMessages(roomId: String) {
+        Task {
+            isLoading = true
+            errorMessage = nil
+            
+            do {
+                self.timelineEvents = try await messageManager.fetchMessages(
+                    roomId: roomId
+                )
+            } catch {
+                self.errorMessage = "Failed to fetch messages: \(error.localizedDescription)"
+            }
+            
+            isLoading = false
         }
-        
-        isLoading = false
     }
     
 //    func loadRoomContent() async {
