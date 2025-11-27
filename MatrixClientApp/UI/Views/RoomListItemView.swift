@@ -18,7 +18,7 @@ struct RoomListItemView: View {
             HStack {
                 Image(systemName: "person.2.fill")
                     .font(.caption)
-                Text("\(room.numJoinedMembers) members")
+                Text("members_count".localizedWithFormat(room.numJoinedMembers))
                     .font(.caption)
             }
             .foregroundColor(.secondary)

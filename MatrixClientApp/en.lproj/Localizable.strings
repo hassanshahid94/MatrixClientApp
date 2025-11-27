@@ -22,3 +22,4 @@
 "no_messages_title" = "No messages yet";
 "join_room_title" = "Join room to view messages";
 "join_room_button" = "Join Room";
+"members_count" = "%d members";
