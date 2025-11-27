@@ -8,21 +8,13 @@
 
 import SwiftUI
 
-struct RoomRowView: View {
+struct RoomListItemView: View {
     let room: PublicRoom
     
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
             Text(room.name)
                 .font(.headline)
-            
-//            if let topic = room.canonicalAlias {
-//                Text(topic)
-//                    .font(.subheadline)
-//                    .foregroundColor(.secondary)
-//                    .lineLimit(2)
-//            }
-            
             HStack {
                 Image(systemName: "person.2.fill")
                     .font(.caption)
@@ -33,4 +25,18 @@ struct RoomRowView: View {
         }
         .padding(.vertical, 4)
     }
+}
+
+#Preview(traits: .sizeThatFitsLayout) {
+    let sampleRoom = PublicRoom(
+        roomId: "1",
+        name: "SwiftUI Lounge",
+        canonicalAlias: "#swiftui:matrix.org",
+        numJoinedMembers: 42,
+        worldReadable: true,
+        guestCanJoin: true,
+        joinRule: "public"
+    )
+
+    RoomListItemView(room: sampleRoom)
 }

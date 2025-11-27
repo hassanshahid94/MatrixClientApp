@@ -30,7 +30,7 @@ struct HomeScreen: View {
                     NavigationLink(
                         destination: RoomDetailScreen(room: room)
                     ) {
-                        RoomRowView(room: room)
+                        RoomListItemView(room: room)
                     }
                 }
                 .refreshable {
