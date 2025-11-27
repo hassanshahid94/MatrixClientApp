@@ -44,27 +44,19 @@ class WebServiceImp: WebService {
         var request = URLRequest(url: url)
         request.httpMethod = method.rawValue
         
-        // Inject saved access token automatically
         if let accessToken = sessionManager.accessToken {
             request.setValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
         }
         
-        // Additional custom headers
         headers?.forEach { key, value in
             request.setValue(value, forHTTPHeaderField: key)
         }
-        
-        // Set content type
-        if method == .post || method == .put {
-            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        }
-        
-        // Body
+    
         if let body = body {
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
             request.httpBody = try JSONSerialization.data(withJSONObject: body)
         }
-        
-        // Execute request
+
         let (data, response) = try await URLSession.shared.data(for: request)
         
         guard let httpResponse = response as? HTTPURLResponse else {
