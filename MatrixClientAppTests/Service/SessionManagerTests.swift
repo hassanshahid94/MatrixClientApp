@@ -23,7 +23,6 @@ final class SessionManagerTests: XCTestCase {
         sessionManager.clear()
         mockKeychainManager = nil
         sessionManager = nil
-        super.tearDown()
     }
     
     // MARK: - Tests

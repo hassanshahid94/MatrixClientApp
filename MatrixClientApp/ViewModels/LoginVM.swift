@@ -41,8 +41,6 @@ class LoginVM: ObservableObject {
                     userId: response.userId
                 )
                 
-            } catch let error as NetworkError {
-                errorMessage = error.errorDescription
             } catch {
                 errorMessage = "Network error: \(error.localizedDescription)"
             }

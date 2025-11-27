@@ -38,6 +38,7 @@
 				Service/RoomManager.swift,
 				Service/SessionManager.swift,
 				Service/WebService.swift,
+				ViewModels/LoginVM.swift,
 			);
 			target = A1D78ECA2ED1DDC20026B1DA /* MatrixClientAppTests */;
 		};
