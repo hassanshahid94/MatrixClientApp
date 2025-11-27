@@ -14,35 +14,40 @@
 			remoteGlobalIDString = A1D78EBD2ED1DDBF0026B1DA;
 			remoteInfo = MatrixClientApp;
 		};
-		A1D78ED62ED1DDC20026B1DA /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = A1D78EB62ED1DDBF0026B1DA /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = A1D78EBD2ED1DDBF0026B1DA;
-			remoteInfo = MatrixClientApp;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		A1D78EBE2ED1DDBF0026B1DA /* MatrixClientApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MatrixClientApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1D78ECB2ED1DDC20026B1DA /* MatrixClientAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MatrixClientAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		A1D78ED52ED1DDC20026B1DA /* MatrixClientAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MatrixClientAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		A137C8C82ED8A2B500C0B678 /* Exceptions for "MatrixClientApp" folder in "MatrixClientAppTests" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Models/LoginResponse.swift,
+				Models/NetworkError.swift,
+				Service/AuthenticationManager.swift,
+				Service/KeychainManager.swift,
+				Service/SessionManager.swift,
+				Service/WebService.swift,
+			);
+			target = A1D78ECA2ED1DDC20026B1DA /* MatrixClientAppTests */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		A1D78EC02ED1DDBF0026B1DA /* MatrixClientApp */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				A137C8C82ED8A2B500C0B678 /* Exceptions for "MatrixClientApp" folder in "MatrixClientAppTests" target */,
+			);
 			path = MatrixClientApp;
 			sourceTree = "<group>";
 		};
 		A1D78ECE2ED1DDC20026B1DA /* MatrixClientAppTests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = MatrixClientAppTests;
-			sourceTree = "<group>";
-		};
-		A1D78ED82ED1DDC20026B1DA /* MatrixClientAppUITests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = MatrixClientAppUITests;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -62,13 +67,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		A1D78ED22ED1DDC20026B1DA /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -77,7 +75,6 @@
 			children = (
 				A1D78EC02ED1DDBF0026B1DA /* MatrixClientApp */,
 				A1D78ECE2ED1DDC20026B1DA /* MatrixClientAppTests */,
-				A1D78ED82ED1DDC20026B1DA /* MatrixClientAppUITests */,
 				A1D78EBF2ED1DDBF0026B1DA /* Products */,
 			);
 			sourceTree = "<group>";
@@ -87,7 +84,6 @@
 			children = (
 				A1D78EBE2ED1DDBF0026B1DA /* MatrixClientApp.app */,
 				A1D78ECB2ED1DDC20026B1DA /* MatrixClientAppTests.xctest */,
-				A1D78ED52ED1DDC20026B1DA /* MatrixClientAppUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -140,29 +136,6 @@
 			productReference = A1D78ECB2ED1DDC20026B1DA /* MatrixClientAppTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		A1D78ED42ED1DDC20026B1DA /* MatrixClientAppUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = A1D78EE52ED1DDC20026B1DA /* Build configuration list for PBXNativeTarget "MatrixClientAppUITests" */;
-			buildPhases = (
-				A1D78ED12ED1DDC20026B1DA /* Sources */,
-				A1D78ED22ED1DDC20026B1DA /* Frameworks */,
-				A1D78ED32ED1DDC20026B1DA /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				A1D78ED72ED1DDC20026B1DA /* PBXTargetDependency */,
-			);
-			fileSystemSynchronizedGroups = (
-				A1D78ED82ED1DDC20026B1DA /* MatrixClientAppUITests */,
-			);
-			name = MatrixClientAppUITests;
-			packageProductDependencies = (
-			);
-			productName = MatrixClientAppUITests;
-			productReference = A1D78ED52ED1DDC20026B1DA /* MatrixClientAppUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -177,10 +150,6 @@
 						CreatedOnToolsVersion = 16.4;
 					};
 					A1D78ECA2ED1DDC20026B1DA = {
-						CreatedOnToolsVersion = 16.4;
-						TestTargetID = A1D78EBD2ED1DDBF0026B1DA;
-					};
-					A1D78ED42ED1DDC20026B1DA = {
 						CreatedOnToolsVersion = 16.4;
 						TestTargetID = A1D78EBD2ED1DDBF0026B1DA;
 					};
@@ -202,7 +171,6 @@
 			targets = (
 				A1D78EBD2ED1DDBF0026B1DA /* MatrixClientApp */,
 				A1D78ECA2ED1DDC20026B1DA /* MatrixClientAppTests */,
-				A1D78ED42ED1DDC20026B1DA /* MatrixClientAppUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -216,13 +184,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		A1D78EC92ED1DDC20026B1DA /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		A1D78ED32ED1DDC20026B1DA /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -246,13 +207,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		A1D78ED12ED1DDC20026B1DA /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -260,11 +214,6 @@
 			isa = PBXTargetDependency;
 			target = A1D78EBD2ED1DDBF0026B1DA /* MatrixClientApp */;
 			targetProxy = A1D78ECC2ED1DDC20026B1DA /* PBXContainerItemProxy */;
-		};
-		A1D78ED72ED1DDC20026B1DA /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = A1D78EBD2ED1DDBF0026B1DA /* MatrixClientApp */;
-			targetProxy = A1D78ED62ED1DDC20026B1DA /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -484,40 +433,6 @@
 			};
 			name = Release;
 		};
-		A1D78EE62ED1DDC20026B1DA /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = CXH6TR46LB;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.hassan.MatrixClientAppUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = MatrixClientApp;
-			};
-			name = Debug;
-		};
-		A1D78EE72ED1DDC20026B1DA /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = CXH6TR46LB;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.hassan.MatrixClientAppUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = MatrixClientApp;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -544,15 +459,6 @@
 			buildConfigurations = (
 				A1D78EE32ED1DDC20026B1DA /* Debug */,
 				A1D78EE42ED1DDC20026B1DA /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		A1D78EE52ED1DDC20026B1DA /* Build configuration list for PBXNativeTarget "MatrixClientAppUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				A1D78EE62ED1DDC20026B1DA /* Debug */,
-				A1D78EE72ED1DDC20026B1DA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

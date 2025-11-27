@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct LoginResponse: Codable {
+struct LoginResponse: Codable, Equatable {
     let userId: String
     let accessToken: String
     let homeServer: String
@@ -24,7 +24,7 @@ struct LoginResponse: Codable {
     }
 }
 
-struct WellKnown: Codable {
+struct WellKnown: Codable, Equatable {
     let homeserver: Homeserver
     let identityServer: IdentityServer
 
@@ -34,7 +34,7 @@ struct WellKnown: Codable {
     }
 }
 
-struct Homeserver: Codable {
+struct Homeserver: Codable, Equatable {
     let baseUrl: String
 
     enum CodingKeys: String, CodingKey {
@@ -42,7 +42,7 @@ struct Homeserver: Codable {
     }
 }
 
-struct IdentityServer: Codable {
+struct IdentityServer: Codable, Equatable {
     let baseUrl: String
 
     enum CodingKeys: String, CodingKey {

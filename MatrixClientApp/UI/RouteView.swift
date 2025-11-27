@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ContentView: View {
+struct RouteView: View {
     @StateObject private var sessionManager = SessionManagerImp.shared
 
     var body: some View {
