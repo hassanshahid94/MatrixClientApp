@@ -8,10 +8,20 @@
 
 import SwiftUI
 
+import SwiftUI
+
 struct LoginScreen: View {
     @ObservedObject var loginVM: LoginVM = LoginVM()
-    @State private var username = "a8ce971b"
-    @State private var password = "46c8b401"
+//    @State private var username = "a8ce971b"
+//    @State private var password = "46c8b401"
+
+    @State private var username = ""
+    @State private var password = ""
+    @FocusState private var focusedField: Field?
+
+    enum Field: Hashable {
+        case username, password
+    }
     
     var body: some View {
         VStack(spacing: 20) {
@@ -34,9 +44,15 @@ struct LoginScreen: View {
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .autocapitalization(.none)
                     .autocorrectionDisabled()
+                    .focused($focusedField, equals: .username)
+                    .submitLabel(.next)
+                    .onSubmit { focusedField = .password }
                 
                 SecureField("password_title".localized, text: $password)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .focused($focusedField, equals: .password)
+                    .submitLabel(.go)
+                    .onSubmit { loginVM.login(username: username, password: password) }
                 
                 if let error = loginVM.errorMessage {
                     Text(error)
@@ -47,6 +63,7 @@ struct LoginScreen: View {
                 
                 Button(action: {
                     loginVM.login(username: username, password: password)
+                    dismissKeyboard()
                 }) {
                     if loginVM.isLoading {
                         ProgressView()
@@ -68,5 +85,13 @@ struct LoginScreen: View {
             Spacer()
         }
         .padding()
+        .background(
+            Color(.systemBackground)
+                .onTapGesture { dismissKeyboard() }
+        )
+    }
+    
+    private func dismissKeyboard() {
+        focusedField = nil
     }
 }
