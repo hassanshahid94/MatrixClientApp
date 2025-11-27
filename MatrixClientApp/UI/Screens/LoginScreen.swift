@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct LoginScreen: View {
-    @ObservedObject var loginVM: LoginVM
+    @ObservedObject var loginVM: LoginVM = LoginVM()
     @State private var username = "a8ce971b"
     @State private var password = "46c8b401"
     

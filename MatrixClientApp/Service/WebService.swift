@@ -26,7 +26,7 @@ protocol WebService {
 class WebServiceImp: WebService {
     static let shared = WebServiceImp()
     private let baseURL = "https://matrix.7aeb1508.sshmatrix.com"
-    private let session = SessionManager.shared
+    private var session =  SessionManagerImp.shared
     
     private init() {}
     

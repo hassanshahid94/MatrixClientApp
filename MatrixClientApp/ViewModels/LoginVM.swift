@@ -33,7 +33,7 @@ class LoginVM: ObservableObject {
                 let response = try await authenticationManager.login(username: username, password: password)
                 
                 // Save session globally
-                SessionManager.shared.updateSession(
+                SessionManagerImp.shared.updateSession(
                     token: response.accessToken,
                     userId: response.userId
                 )

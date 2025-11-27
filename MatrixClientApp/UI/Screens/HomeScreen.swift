@@ -42,7 +42,7 @@ struct HomeScreen: View {
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button("Logout") {
-                   // homeVM.logout()
+                    SessionManagerImp.shared.clear()
                 }
             }
         }
