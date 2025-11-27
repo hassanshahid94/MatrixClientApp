@@ -26,7 +26,6 @@ struct MembershipEventView: View {
                 .font(.caption)
                 .foregroundColor(.secondary)
             
-            // Timestamp
             Text(event.date.messageTime)
                 .font(.caption2)
                 .foregroundColor(.secondary)

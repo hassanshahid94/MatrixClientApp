@@ -15,13 +15,13 @@ struct HomeScreen: View {
     var body: some View {
         VStack {
             if homeVM.isLoading && homeVM.rooms.isEmpty {
-                ProgressView("Loading rooms...")
+                ProgressView("loading_room_title".localized)
             } else if homeVM.rooms.isEmpty {
                 VStack(spacing: 16) {
                     Image(systemName: "tray")
                         .font(.system(size: 60))
                         .foregroundColor(.secondary)
-                    Text("No public rooms available")
+                    Text("empty_list_description".localized)
                         .font(.headline)
                         .foregroundColor(.secondary)
                 }
@@ -41,18 +41,18 @@ struct HomeScreen: View {
         .onAppear {
             homeVM.fetchPublicRooms()
         }
-        .navigationTitle("Public Rooms")
+        .navigationTitle("public_room_title".localized)
         .navigationBarTitleDisplayMode(.large)
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
-                Button("Logout") {
+                Button("logout_button".localized) {
                     homeVM.logout()
                     presentationMode.wrappedValue.dismiss()
                 }
             }
         }
-        .alert("Error", isPresented: .constant(homeVM.errorMessage != nil)) {
-            Button("OK") {
+        .alert("error_title".localized, isPresented: .constant(homeVM.errorMessage != nil)) {
+            Button("ok_button".localized) {
                 homeVM.errorMessage = nil
             }
         } message: {

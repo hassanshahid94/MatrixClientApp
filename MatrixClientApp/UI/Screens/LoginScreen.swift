@@ -20,22 +20,22 @@ struct LoginScreen: View {
                 .foregroundColor(.blue)
                 .padding(.bottom, 20)
             
-            Text("Matrix Client")
+            Text("matrix_client_title".localized)
                 .font(.largeTitle)
                 .fontWeight(.bold)
             
-            Text("Connect to your homeserver")
+            Text("matrix_client_description".localized)
                 .font(.subheadline)
                 .foregroundColor(.secondary)
                 .padding(.bottom, 30)
             
             VStack(spacing: 16) {
-                TextField("Username", text: $username)
+                TextField("username_title".localized, text: $username)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .autocapitalization(.none)
                     .autocorrectionDisabled()
                 
-                SecureField("Password", text: $password)
+                SecureField("password_title".localized, text: $password)
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                 
                 if let error = loginVM.errorMessage {
@@ -52,7 +52,7 @@ struct LoginScreen: View {
                         ProgressView()
                             .progressViewStyle(CircularProgressViewStyle(tint: .white))
                     } else {
-                        Text("Login")
+                        Text("login_button".localized)
                             .fontWeight(.semibold)
                     }
                 }

@@ -1,0 +1,24 @@
+/* 
+  Localizable.strings
+  MatrixClientApp
+
+  Created by Hassan Shahid on 27.11.2025.
+  
+*/
+
+"error_title" = "Error";
+"ok_button" = "OK";
+"public_room_title" = "Public Rooms";
+"logout_button" = "Logout";
+"empty_list_description" = "No public rooms available";
+"loading_room_title" = "Loading room...";
+"loading_messages_title" = "Loading messages..";
+"loading_checking_room_title" = "Checking room....";
+"matrix_client_title" = "Matrix Client";
+"matrix_client_description" = "Connect to your homeserver";
+"username_title" = "Username";
+"password_title" = "Password";
+"login_button" = "Login";
+"no_messages_title" = "No messages yet";
+"join_room_title" = "Join room to view messages";
+"join_room_button" = "Join Room";

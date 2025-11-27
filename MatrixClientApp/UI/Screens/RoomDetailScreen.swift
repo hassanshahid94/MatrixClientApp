@@ -15,7 +15,7 @@ struct RoomDetailScreen: View {
     var body: some View {
         ZStack {
             if roomDetailVM.isLoading {
-                LoadingView(message: roomDetailVM.hasJoinedRoom ? "Loading messages..." : "Checking room...")
+                LoadingView(message: roomDetailVM.hasJoinedRoom ? "loading_messages_title".localized : "loading_checking_room_title".localized)
             }
             else if !roomDetailVM.hasJoinedRoom {
                 JoinRoomView {
@@ -25,7 +25,7 @@ struct RoomDetailScreen: View {
             else if roomDetailVM.timelineEvents.isEmpty {
                 EmptyStateView(
                     imageName: "bubble.left.and.bubble.right",
-                    message: "No messages yet"
+                    message: "no_messages_title".localized
                 )
             }
             else {
@@ -44,8 +44,8 @@ struct RoomDetailScreen: View {
         .onAppear {
             roomDetailVM.loadRoom(roomId: room.roomId)
         }
-        .alert("Error", isPresented: .constant(roomDetailVM.errorMessage != nil)) {
-            Button("OK") { roomDetailVM.errorMessage = nil }
+        .alert("error_title".localized, isPresented: .constant(roomDetailVM.errorMessage != nil)) {
+            Button("ok_button".localized) { roomDetailVM.errorMessage = nil }
         } message: {
             if let error = roomDetailVM.errorMessage {
                 Text(error)
@@ -88,9 +88,9 @@ private struct JoinRoomView: View {
             Image(systemName: "lock.fill")
                 .font(.system(size: 60))
                 .foregroundColor(.secondary)
-            Text("Join room to view messages")
+            Text("join_room_title".localized)
                 .font(.headline)
-            Button("Join Room", action: joinAction)
+            Button("join_room_button".localized, action: joinAction)
                 .buttonStyle(.borderedProminent)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)

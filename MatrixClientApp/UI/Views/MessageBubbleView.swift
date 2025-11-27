@@ -12,7 +12,6 @@ struct MessageBubbleView: View {
     
     var body: some View {
         HStack(alignment: .top, spacing: 8) {
-            // Avatar circle
             Circle()
                 .fill(Color.purple.opacity(0.7))
                 .frame(width: 32, height: 32)
@@ -24,13 +23,11 @@ struct MessageBubbleView: View {
                 )
             
             VStack(alignment: .leading, spacing: 4) {
-                // Sender name
                 Text(message.displayName)
                     .font(.caption)
                     .fontWeight(.semibold)
                     .foregroundColor(.secondary)
                 
-                // Message bubble
                 Text(message.body)
                     .padding(12)
                     .background(Color.gray.opacity(0.2))
@@ -38,7 +35,6 @@ struct MessageBubbleView: View {
                     .cornerRadius(16)
                     .fixedSize(horizontal: false, vertical: true)
                 
-                // Timestamp
                 Text(message.date.messageTime)
                     .font(.caption2)
                     .foregroundColor(.secondary)
