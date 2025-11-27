@@ -18,7 +18,7 @@ struct PublicRoomResponse: Codable {
     }
 }
 
-struct PublicRoom: Identifiable, Codable {
+struct PublicRoom: Identifiable, Codable, Equatable {
     let roomId: String
     let name: String
     let canonicalAlias: String

@@ -14,7 +14,6 @@ final class SessionManagerTests: XCTestCase {
     private var sessionManager: SessionManagerImp!
     
     override func setUp() {
-        super.setUp()
         mockKeychainManager = MockKeychainManager()
         sessionManager = SessionManagerImp(keychain: mockKeychainManager)
     }

@@ -29,7 +29,6 @@ final class LoginVMTests: XCTestCase {
     )
     
     override func setUp() {
-        super.setUp()
         mockAuthenticationManager = MockAuthenticationManager()
         mockSessionManager = MockSessionManager()
         loginVM = LoginVM(

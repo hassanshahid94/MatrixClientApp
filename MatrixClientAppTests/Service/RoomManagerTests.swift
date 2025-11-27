@@ -38,9 +38,13 @@ final class RoomManagerTests: XCTestCase {
     private let testJoinedRooms: [String] = ["!room1:matrix.org", "!room2:matrix.org"]
     
     override func setUp() {
-        super.setUp()
         mockWebService = MockWebService()
         roomManager = RoomManagerImp(webService: mockWebService)
+    }
+    
+    override func tearDown() {
+        mockWebService = nil
+        roomManager = nil
     }
     
     // MARK: - Tests

@@ -63,9 +63,13 @@ final class MessageManagerTests: XCTestCase {
     }()
     
     override func setUp() {
-        super.setUp()
         mockWebService = MockWebService()
         messageManager = MessageManagerImp(webService: mockWebService)
+    }
+    
+    override func tearDown() {
+        mockWebService = nil
+        messageManager = nil
     }
     
     // MARK: - Tests

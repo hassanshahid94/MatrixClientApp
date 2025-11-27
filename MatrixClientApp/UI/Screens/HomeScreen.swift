@@ -38,6 +38,9 @@ struct HomeScreen: View {
                 }
             }
         }
+        .onAppear {
+            homeVM.fetchPublicRooms()
+        }
         .navigationTitle("Public Rooms")
         .navigationBarTitleDisplayMode(.large)
         .toolbar {

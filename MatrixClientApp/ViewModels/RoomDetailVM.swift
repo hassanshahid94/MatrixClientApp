@@ -36,9 +36,8 @@ class RoomDetailVM: ObservableObject {
             await checkIfJoined(roomId: roomId)
             
             if hasJoinedRoom {
-                fetchMessages(roomId: roomId)
+                await fetchMessages(roomId: roomId)
             }
-            
             isLoading = false
         }
     }
@@ -48,22 +47,12 @@ class RoomDetailVM: ObservableObject {
             do {
                 isLoading = true
                 try await roomManager.joinRoom(roomId: roomId)
-                self.hasJoinedRoom = true
-                fetchMessages(roomId: roomId)
+                hasJoinedRoom = true
+                await fetchMessages(roomId: roomId)
             } catch {
-                self.errorMessage = "Failed to join room: \(error.localizedDescription)"
+                errorMessage = "Failed to join room: \(error.localizedDescription)"
             }
             isLoading = false
-        }
-    }
-    
-    func fetchMessages(roomId: String) {
-        Task {
-            do {
-                self.timelineEvents = try await messageManager.fetchMessages(roomId: roomId)
-            } catch {
-                self.errorMessage = "Failed to fetch messages: \(error.localizedDescription)"
-            }
         }
     }
     
@@ -71,9 +60,17 @@ class RoomDetailVM: ObservableObject {
     private func checkIfJoined(roomId: String) async {
         do {
             let joinedRooms = try await roomManager.fetchJoinedRooms()
-            self.hasJoinedRoom = joinedRooms.contains(roomId)
+            hasJoinedRoom = joinedRooms.contains(roomId)
         } catch {
-            self.errorMessage = "Failed to check room membership: \(error.localizedDescription)"
+            errorMessage = "Failed to check room membership: \(error.localizedDescription)" // Not Covered
+        }
+    }
+    
+    private func fetchMessages(roomId: String) async {
+        do {
+            timelineEvents = try await messageManager.fetchMessages(roomId: roomId)
+        } catch {
+            errorMessage = "Failed to fetch messages: \(error.localizedDescription)"
         }
     }
 }

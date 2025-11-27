@@ -33,6 +33,12 @@ final class AuthenticationManagerTests: XCTestCase {
         authenticationManager = AuthenticationManagerImp(webService: mockWebService)
     }
     
+    override func tearDown() {
+        mockWebService = nil
+        authenticationManager = nil
+    }
+    
+    // MARK: - Tests
     func testLoginSuccess() async throws {
         let responseData = try! JSONEncoder().encode(testLoginResponse)
         mockWebService.mockResponse = .success(responseData)

@@ -24,8 +24,6 @@ class HomeVM: ObservableObject {
          sessionManager: SessionManager = SessionManagerImp.shared) {
         self.roomManager = roomManager
         self.sessionManager = sessionManager
-        
-        fetchPublicRooms()
     }
     
     // MARK: - Functions

@@ -7,10 +7,12 @@
 
 import Foundation
 
-final class MockSessionManager: SessionManager {
+class MockSessionManager: SessionManager {
     var accessToken: String?
     var updatedToken: String?
     var updatedUserId: String?
+    
+    var clearCalled = false
     
     func updateSession(token: String, userId: String) {
         updatedToken = token
@@ -19,6 +21,7 @@ final class MockSessionManager: SessionManager {
     }
     
     func clear() {
+        clearCalled = true
         accessToken = nil
         updatedToken = nil
         updatedUserId = nil
