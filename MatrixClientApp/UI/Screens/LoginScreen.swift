@@ -79,6 +79,7 @@ struct LoginScreen: View {
                 .foregroundColor(.white)
                 .cornerRadius(10)
                 .disabled(loginVM.isLoading || username.isEmpty || password.isEmpty)
+                .opacity(loginVM.isLoading || username.isEmpty || password.isEmpty ? 0.5 : 1.0)
             }
             .padding(.horizontal, 40)
             
