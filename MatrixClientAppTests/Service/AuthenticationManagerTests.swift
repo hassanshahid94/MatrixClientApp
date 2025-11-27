@@ -12,7 +12,7 @@ final class AuthenticationManagerTests: XCTestCase {
     //MARK: Variables
     private var authenticationManager: AuthenticationManager!
     private var mockWebService: MockWebService!
-    
+
     private let testLoginResponse = LoginResponse(
         userId: "@john:matrix.org",
         accessToken: "abc123token",

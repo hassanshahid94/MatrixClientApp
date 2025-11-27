@@ -27,9 +27,8 @@ final class SessionManagerTests: XCTestCase {
     }
     
     // MARK: - Tests
-    
     func testInitialAccessTokenIsNilWhenKeychainEmpty() {
-        XCTAssertNil(sessionManager.accessToken, "Access token should be nil when keychain is empty")
+        XCTAssertNil(sessionManager.accessToken)
     }
     
     func testInitialAccessTokenIsLoadedFromKeychain() {
@@ -37,14 +36,14 @@ final class SessionManagerTests: XCTestCase {
         
         let manager = SessionManagerImp(keychain: mockKeychainManager)
         
-        XCTAssertEqual(manager.accessToken, "token123", "Access token should load from keychain")
+        XCTAssertEqual(manager.accessToken, "token123")
     }
     
     func testUpdateSessionSavesTokenAndUpdatesAccessToken() {
         sessionManager.updateSession(token: "newToken", userId: "@user:matrix.org")
         
-        XCTAssertEqual(sessionManager.accessToken, "newToken", "Access token should be updated in memory")
-        XCTAssertEqual(mockKeychainManager.read(key: "accessToken"), "newToken", "Access token should be saved in keychain")
+        XCTAssertEqual(sessionManager.accessToken, "newToken")
+        XCTAssertEqual(mockKeychainManager.read(key: "accessToken"), "newToken")
     }
     
     func testClearRemovesTokenAndAccessTokenIsNil() {
@@ -52,7 +51,7 @@ final class SessionManagerTests: XCTestCase {
         
         sessionManager.clear()
         
-        XCTAssertNil(sessionManager.accessToken, "Access token should be nil after clearing session")
-        XCTAssertNil(mockKeychainManager.read(key: "accessToken"), "Keychain should not contain access token after clearing session")
+        XCTAssertNil(sessionManager.accessToken)
+        XCTAssertNil(mockKeychainManager.read(key: "accessToken"))
     }
 }

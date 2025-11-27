@@ -13,7 +13,6 @@ final class MessageManagerTests: XCTestCase {
     private var messageManager: MessageManager!
     private var mockWebService: MockWebService!
     
-    // MARK: - Test Data
     private let roomId = "!room123:matrix.org"
     
     private lazy var testTimelineEvents: [TimelineEvent] = {
@@ -70,7 +69,6 @@ final class MessageManagerTests: XCTestCase {
     }
     
     // MARK: - Tests
-    
     func testFetchMessagesSuccess() async throws {
         let responseData = try JSONEncoder().encode(testMessagesResponse)
         mockWebService.mockResponse = .success(responseData)
@@ -79,7 +77,6 @@ final class MessageManagerTests: XCTestCase {
         
         XCTAssertEqual(events.count, testTimelineEvents.count)
         
-        // Validate first message
         if case let .message(msg) = events[0] {
             XCTAssertEqual(msg.id, "evt1")
             XCTAssertEqual(msg.sender, "@alice:matrix.org")
@@ -88,7 +85,6 @@ final class MessageManagerTests: XCTestCase {
             XCTFail("Expected first event to be message")
         }
         
-        // Validate membership event
         if case let .membershipChange(mem) = events[1] {
             XCTAssertEqual(mem.id, "evt2")
             XCTAssertEqual(mem.displayName, "Bob")

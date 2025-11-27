@@ -14,7 +14,6 @@ final class RoomManagerTests: XCTestCase {
     private var roomManager: RoomManager!
     private var mockWebService: MockWebService!
     
-    // MARK: - Test Data
     private let testPublicRooms: [PublicRoom] = [
         PublicRoom(
             roomId: "!room1:matrix.org",
