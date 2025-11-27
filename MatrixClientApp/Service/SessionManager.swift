@@ -20,21 +20,24 @@ final class SessionManagerImp: ObservableObject, SessionManager {
     static let shared = SessionManagerImp(keychain: KeychainManagerImp())
     
     @Published private(set) var accessToken: String?
+    
     private let keychain: KeychainManager
     
+    private let accessTokenKey = "accessToken"
+
     init(keychain: KeychainManager) {
         self.keychain = keychain
 
-        accessToken = keychain.read(key: "accessToken")
+        accessToken = keychain.read(key: accessTokenKey)
     }
     
     func updateSession(token: String, userId: String) {
         accessToken = token
-        keychain.save(key: "accessToken", value: token)
+        keychain.save(key: accessTokenKey, value: token)
     }
     
     func clear() {
         accessToken = nil
-        keychain.delete(key: "accessToken")
+        keychain.delete(key: accessTokenKey)
     }
 }
