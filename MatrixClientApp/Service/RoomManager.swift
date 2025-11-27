@@ -22,7 +22,7 @@ class RoomManagerImp: RoomManager {
     
     func fetchPublicRooms() async throws -> [PublicRoom] {
         let response: PublicRoomResponse = try await webService.request(
-            endpoint: "/_matrix/client/v3/publicRooms",
+            endpoint: "/publicRooms",
             method: .get,
             body: nil,
             headers: nil
@@ -33,7 +33,7 @@ class RoomManagerImp: RoomManager {
     
     func joinRoom(roomId: String) async throws {
         let _: JoinRoomResponse = try await webService.request(
-            endpoint: "/_matrix/client/v3/join/\(roomId)",
+            endpoint: "/join/\(roomId)",
             method: .post,
             body: [:],
             headers: nil
@@ -42,7 +42,7 @@ class RoomManagerImp: RoomManager {
     
     func fetchJoinedRooms() async throws -> [String] {
         let response: JoinedRoomResponse = try await webService.request(
-            endpoint: "/_matrix/client/v3/joined_rooms",
+            endpoint: "/joined_rooms",
             method: .get,
             body: nil,
             headers: nil

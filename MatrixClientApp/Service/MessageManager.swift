@@ -21,7 +21,7 @@ class MessageManagerImp: MessageManager {
     func fetchMessages(roomId: String) async throws -> [TimelineEvent] {
         
         let response: MessagesResponse = try await webService.request(
-            endpoint: "/_matrix/client/v3/rooms/\(roomId)/messages?dir=b&limit=50",
+            endpoint: "/rooms/\(roomId)/messages?dir=b&limit=50",
             method: .get,
             body: nil,
             headers: nil

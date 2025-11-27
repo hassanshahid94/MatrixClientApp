@@ -30,7 +30,7 @@ class AuthenticationManagerImp: AuthenticationManager {
         ]
         
         let response: LoginResponse = try await webService.request(
-            endpoint: "/_matrix/client/v3/login",
+            endpoint: "/login",
             method: .post,
             body: body,
             headers: nil
