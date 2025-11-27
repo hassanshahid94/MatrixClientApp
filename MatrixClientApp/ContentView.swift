@@ -8,11 +8,11 @@
 import SwiftUI
 
 struct ContentView: View {
-    @ObservedObject private var session = SessionManagerImp.shared
+    @StateObject private var sessionManager = SessionManagerImp.shared
 
     var body: some View {
         NavigationView {
-            if session.accessToken != nil {
+            if sessionManager.accessToken != nil {
                 HomeScreen()
             } else {
                 LoginScreen()

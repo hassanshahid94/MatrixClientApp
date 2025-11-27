@@ -17,10 +17,13 @@ class HomeVM: ObservableObject {
     
     // MARK: - Dependencies
     private let roomManager: RoomManager
+    private let sessionManager: SessionManager
     
     // MARK: - Initializer
-    init(roomManager: RoomManager = RoomManagerImp()) {
+    init(roomManager: RoomManager = RoomManagerImp(),
+         sessionManager: SessionManager = SessionManagerImp.shared) {
         self.roomManager = roomManager
+        self.sessionManager = sessionManager
         
         fetchPublicRooms()
     }
@@ -38,5 +41,9 @@ class HomeVM: ObservableObject {
             }
             isLoading = false
         }
+    }
+    
+    func logout() {
+        sessionManager.clear()
     }
 }

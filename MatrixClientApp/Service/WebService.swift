@@ -26,9 +26,12 @@ protocol WebService {
 class WebServiceImp: WebService {
     static let shared = WebServiceImp()
     private let baseURL = "https://matrix.7aeb1508.sshmatrix.com"
-    private var session =  SessionManagerImp.shared
     
-    private init() {}
+    private let sessionManager: SessionManager
+    
+    init(sessionManager: SessionManager = SessionManagerImp.shared) {
+        self.sessionManager = sessionManager
+    }
     
     func request<T: Decodable>(
         endpoint: String,
@@ -42,7 +45,7 @@ class WebServiceImp: WebService {
         request.httpMethod = method.rawValue
         
         // Inject saved access token automatically
-        if let accessToken = session.accessToken {
+        if let accessToken = sessionManager.accessToken {
             request.setValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
         }
         

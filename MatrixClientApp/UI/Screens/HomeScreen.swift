@@ -9,6 +9,7 @@
 import SwiftUI
 
 struct HomeScreen: View {
+    @Environment(\.presentationMode) var presentationMode
     @ObservedObject var homeVM: HomeVM = HomeVM()
     
     var body: some View {
@@ -42,7 +43,8 @@ struct HomeScreen: View {
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button("Logout") {
-                    SessionManagerImp.shared.clear()
+                    homeVM.logout()
+                    presentationMode.wrappedValue.dismiss()
                 }
             }
         }

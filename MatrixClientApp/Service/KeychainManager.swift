@@ -14,7 +14,7 @@ protocol KeychainManager {
     func delete(key: String)
 }
 
-class KeychainManagerImpl: KeychainManager {
+class KeychainManagerImp: KeychainManager {
 
     func save(key: String, value: String) {
         let data = value.data(using: .utf8)!

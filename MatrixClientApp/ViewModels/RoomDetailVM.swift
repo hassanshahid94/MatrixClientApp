@@ -77,4 +77,3 @@ class RoomDetailVM: ObservableObject {
         }
     }
 }
-

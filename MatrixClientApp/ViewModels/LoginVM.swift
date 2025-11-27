@@ -13,14 +13,18 @@ class LoginVM: ObservableObject {
     // MARK: - Published Properties
     @Published var isLoading = false
     @Published var errorMessage: String?
-    @Published var isAuthenticated = false
     
     // MARK: - Dependencies
     private let authenticationManager: AuthenticationManager
+    private let sessionManager: SessionManager
     
     // MARK: - Initializer
-    init(authenticationManager: AuthenticationManager = AuthenticationManagerImp()) {
+    init(
+        authenticationManager: AuthenticationManager = AuthenticationManagerImp(),
+        sessionManager: SessionManager = SessionManagerImp.shared
+    ) {
         self.authenticationManager = authenticationManager
+        self.sessionManager = sessionManager
     }
     
     // MARK: - Functions
@@ -32,18 +36,15 @@ class LoginVM: ObservableObject {
             do {
                 let response = try await authenticationManager.login(username: username, password: password)
                 
-                // Save session globally
-                SessionManagerImp.shared.updateSession(
+                sessionManager.updateSession(
                     token: response.accessToken,
                     userId: response.userId
                 )
                 
-                self.isAuthenticated = true
-                
             } catch let error as NetworkError {
-                self.errorMessage = error.errorDescription
+                errorMessage = error.errorDescription
             } catch {
-                self.errorMessage = "Network error: \(error.localizedDescription)"
+                errorMessage = "Network error: \(error.localizedDescription)"
             }
             
             isLoading = false
