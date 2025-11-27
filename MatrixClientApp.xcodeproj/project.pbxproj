@@ -25,10 +25,17 @@
 		A137C8C82ED8A2B500C0B678 /* Exceptions for "MatrixClientApp" folder in "MatrixClientAppTests" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
+				Models/JoinedRoomResponse.swift,
+				Models/JoinRoomResponse.swift,
 				Models/LoginResponse.swift,
+				Models/MessagesResponse.swift,
 				Models/NetworkError.swift,
+				Models/PublicRoomResponse.swift,
+				Models/TimelineEvent.swift,
 				Service/AuthenticationManager.swift,
 				Service/KeychainManager.swift,
+				Service/MessageManager.swift,
+				Service/RoomManager.swift,
 				Service/SessionManager.swift,
 				Service/WebService.swift,
 			);
