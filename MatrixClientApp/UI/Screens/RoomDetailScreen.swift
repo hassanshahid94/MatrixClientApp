@@ -15,7 +15,8 @@ struct RoomDetailScreen: View {
     var body: some View {
         ZStack {
             if roomDetailVM.isLoading {
-                LoadingView(message: roomDetailVM.hasJoinedRoom ? "loading_messages_title".localized : "loading_checking_room_title".localized)
+                ProgressView(roomDetailVM.hasJoinedRoom ? "loading_messages_title".localized : "loading_checking_room_title".localized)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
             else if !roomDetailVM.hasJoinedRoom {
                 JoinRoomView {
@@ -56,30 +57,6 @@ struct RoomDetailScreen: View {
 
 
 // MARK: - Subviews
-private struct LoadingView: View {
-    let message: String
-    var body: some View {
-        ProgressView(message)
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-    }
-}
-
-private struct EmptyStateView: View {
-    let imageName: String
-    let message: String
-    var body: some View {
-        VStack(spacing: 16) {
-            Image(systemName: imageName)
-                .font(.system(size: 60))
-                .foregroundColor(.secondary)
-            Text(message)
-                .font(.headline)
-                .foregroundColor(.secondary)
-        }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-    }
-}
-
 private struct JoinRoomView: View {
     let joinAction: () -> Void
     var body: some View {

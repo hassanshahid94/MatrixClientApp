@@ -12,17 +12,13 @@ struct HomeScreen: View {
     @ObservedObject var homeVM: HomeVM = HomeVM()
     
     var body: some View {
+        
         VStack {
             if homeVM.isLoading && homeVM.rooms.isEmpty {
                 ProgressView("loading_room_title".localized)
             } else if homeVM.rooms.isEmpty {
                 VStack(spacing: 16) {
-                    Image(systemName: "tray")
-                        .font(.system(size: 60))
-                        .foregroundColor(.secondary)
-                    Text("empty_list_description".localized)
-                        .font(.headline)
-                        .foregroundColor(.secondary)
+                    EmptyStateView(imageName: "tray", message: "empty_list_description".localized)
                 }
             } else {
                 List(homeVM.rooms) { room in
