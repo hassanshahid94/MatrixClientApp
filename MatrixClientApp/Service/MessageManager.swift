@@ -90,7 +90,6 @@ class MessageManagerImp: MessageManager {
     }
     
     private func extractDisplayName(from userId: String) -> String {
-        // Extract username from @username:domain format
         if let username = userId.split(separator: "@").last?.split(separator: ":").first {
             return String(username)
         }

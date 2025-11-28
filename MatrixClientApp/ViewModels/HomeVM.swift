@@ -33,9 +33,9 @@ class HomeVM: ObservableObject {
         
         Task {
             do {
-                self.rooms = try await roomManager.fetchPublicRooms()
+                rooms = try await roomManager.fetchPublicRooms()
             } catch {
-                self.errorMessage = "Failed to fetch rooms: \(error.localizedDescription)"
+                errorMessage = "Failed to fetch rooms: \(error.localizedDescription)"
             }
             isLoading = false
         }

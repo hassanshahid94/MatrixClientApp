@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct EmptyStateView: View {
-    
     let imageName: String
     let message: String
 

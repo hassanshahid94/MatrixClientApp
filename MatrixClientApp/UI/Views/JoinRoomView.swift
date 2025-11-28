@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct JoinRoomView: View {
-    
     let joinAction: () -> Void
 
     var body: some View {

@@ -12,7 +12,6 @@ struct HomeScreen: View {
     @ObservedObject var homeVM: HomeVM = HomeVM()
     
     var body: some View {
-        
         VStack {
             if homeVM.isLoading && homeVM.rooms.isEmpty {
                 ProgressView("loading_room_title".localized)
