@@ -30,6 +30,7 @@ struct MessageBubbleView: View {
                 
                 Text(message.body)
                     .padding(12)
+                    .textSelection(.enabled)
                     .background(Color.gray.opacity(0.2))
                     .foregroundColor(.primary)
                     .cornerRadius(16)
