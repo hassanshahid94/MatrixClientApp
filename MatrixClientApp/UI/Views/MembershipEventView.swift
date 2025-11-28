@@ -22,7 +22,7 @@ struct MembershipEventView: View {
                         .fontWeight(.bold)
                 )
             
-            Text(event.displayText)
+            Text(event.localizedText)
                 .font(.caption)
                 .foregroundColor(.secondary)
             

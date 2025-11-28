@@ -23,3 +23,6 @@
 "join_room_title" = "Join room to view messages";
 "join_room_button" = "Join Room";
 "members_count" = "%d members";
+"membership_joined" = "%@ joined the room";
+"membership_left" = "%@ left the room";
+"membership_invited" = "%@ was invited to the room";

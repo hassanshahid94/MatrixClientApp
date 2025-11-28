@@ -54,14 +54,14 @@ struct MembershipEvent: Identifiable {
         case invited
     }
     
-    var displayText: String {
+    var localizedText: String {
         switch action {
         case .joined:
-            return "\(displayName) joined the room"
+            return "membership_joined".localizedWithFormat(displayName)
         case .left:
-            return "\(displayName) left the room"
+            return "membership_left".localizedWithFormat(displayName)
         case .invited:
-            return "\(displayName) was invited to the room"
+            return "membership_invited".localizedWithFormat(displayName)
         }
     }
 }
