@@ -28,15 +28,5 @@ struct RoomListItemView: View {
 }
 
 #Preview(traits: .sizeThatFitsLayout) {
-    let sampleRoom = PublicRoom(
-        roomId: "1",
-        name: "SwiftUI Lounge",
-        canonicalAlias: "#swiftui:matrix.org",
-        numJoinedMembers: 42,
-        worldReadable: true,
-        guestCanJoin: true,
-        joinRule: "public"
-    )
-
-    RoomListItemView(room: sampleRoom)
+    RoomListItemView(room: PreviewData.sampleRoom)
 }

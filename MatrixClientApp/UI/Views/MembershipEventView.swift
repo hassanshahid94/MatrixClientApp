@@ -36,3 +36,12 @@ struct MembershipEventView: View {
         .padding(.horizontal, 12)
     }
 }
+
+#Preview {
+    VStack(spacing: 12) {
+        MembershipEventView(event: PreviewData.sampleJoinedEvent)
+        MembershipEventView(event: PreviewData.sampleLeftEvent)
+        MembershipEventView(event: PreviewData.sampleInvitedEvent)
+    }
+    .padding()
+}

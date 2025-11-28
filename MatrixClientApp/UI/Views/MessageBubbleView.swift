@@ -46,3 +46,7 @@ struct MessageBubbleView: View {
         .padding(.vertical, 4)
     }
 }
+
+#Preview(traits: .sizeThatFitsLayout) {
+    MessageBubbleView(message: PreviewData.sampleMessage)
+}

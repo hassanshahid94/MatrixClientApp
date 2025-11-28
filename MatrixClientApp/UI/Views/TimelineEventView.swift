@@ -21,3 +21,11 @@ struct TimelineEventView: View {
         }
     }
 }
+
+#Preview {
+    VStack(spacing: 12) {
+        ForEach(PreviewData.sampleTimelineEvents) { event in
+            TimelineEventView(event: event)
+        }
+    }
+}
