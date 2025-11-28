@@ -75,6 +75,9 @@ extension Array where Element == TimelineEvent {
             return date1 > date2
         }
         
-        return sortedKeys.map { (title: $0, events: grouped[$0] ?? []) }
+        return sortedKeys.map { key in
+            let events = grouped[key]?.sorted { $0.date < $1.date } ?? []
+            return (title: key, events: events)
+        }
     }
 }
