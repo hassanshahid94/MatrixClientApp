@@ -24,7 +24,7 @@ struct EmptyStateView: View {
     }
 }
 
-#Preview(traits: .sizeThatFitsLayout) {
+#Preview {
     EmptyStateView(
         imageName: "bubble.left.and.bubble.right",
         message: "no_messages_title".localized

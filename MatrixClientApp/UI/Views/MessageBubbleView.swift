@@ -47,6 +47,6 @@ struct MessageBubbleView: View {
     }
 }
 
-#Preview(traits: .sizeThatFitsLayout) {
+#Preview {
     MessageBubbleView(message: PreviewData.sampleMessage)
 }

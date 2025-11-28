@@ -24,6 +24,6 @@ struct JoinRoomView: View {
     }
 }
 
-#Preview(traits: .sizeThatFitsLayout) {
+#Preview {
     JoinRoomView(joinAction: {})
 }

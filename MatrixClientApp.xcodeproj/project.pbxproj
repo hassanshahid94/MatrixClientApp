@@ -30,6 +30,7 @@
 				Design/DesignMessageManager.swift,
 				Design/DesignRoomManager.swift,
 				Design/DesignSessionManager.swift,
+				Design/PreviewData.swift,
 				Extensions/String.swift,
 				Models/JoinedRoomResponse.swift,
 				Models/JoinRoomResponse.swift,
