@@ -45,6 +45,7 @@
 				Service/SessionManager.swift,
 				Service/WebService.swift,
 				UI/Views/EmptyStateView.swift,
+				UI/Views/JoinRoomView.swift,
 				ViewModels/HomeVM.swift,
 				ViewModels/LoginVM.swift,
 				ViewModels/RoomDetailVM.swift,

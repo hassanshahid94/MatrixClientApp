@@ -1,5 +1,5 @@
 //
-//  EmptyStateView.swift
+//  JoinRoomView.swift
 //  MatrixClientApp
 //
 //  Created by Hassan Shahid on 28.11.2025.
@@ -7,27 +7,24 @@
 
 import SwiftUI
 
-struct EmptyStateView: View {
+struct JoinRoomView: View {
     
-    let imageName: String
-    let message: String
+    let joinAction: () -> Void
 
     var body: some View {
         VStack(spacing: 16) {
-            Image(systemName: imageName)
+            Image(systemName: "lock.fill")
                 .font(.system(size: 60))
                 .foregroundColor(.secondary)
-            Text(message)
+            Text("join_room_title".localized)
                 .font(.headline)
-                .foregroundColor(.secondary)
+            Button("join_room_button".localized, action: joinAction)
+                .buttonStyle(.borderedProminent)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 }
 
 #Preview(traits: .sizeThatFitsLayout) {
-    EmptyStateView(
-        imageName: "bubble.left.and.bubble.right",
-        message: "no_messages_title".localized
-    )
+    JoinRoomView(joinAction: {})
 }

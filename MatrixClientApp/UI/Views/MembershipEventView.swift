@@ -37,7 +37,7 @@ struct MembershipEventView: View {
     }
 }
 
-#Preview {
+#Preview(traits: .sizeThatFitsLayout) {
     VStack(spacing: 12) {
         MembershipEventView(event: PreviewData.sampleJoinedEvent)
         MembershipEventView(event: PreviewData.sampleLeftEvent)

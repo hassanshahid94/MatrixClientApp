@@ -22,7 +22,7 @@ struct TimelineEventView: View {
     }
 }
 
-#Preview {
+#Preview(traits: .sizeThatFitsLayout) {
     VStack(spacing: 12) {
         ForEach(PreviewData.sampleTimelineEvents) { event in
             TimelineEventView(event: event)
