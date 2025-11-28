@@ -30,20 +30,37 @@ struct RoomDetailScreen: View {
                 )
             }
             else {
-                ScrollView {
-                    LazyVStack(alignment: .leading, spacing: 16) {
-                        ForEach(roomDetailVM.timelineEvents.groupedByDay().reversed(), id: \.title) { group in
-                            Text(group.title)
-                                .font(.caption)
-                                .foregroundColor(.secondary)
-                                .padding(.horizontal)
-                            
-                            ForEach(group.events) { event in
-                                TimelineEventView(event: event)
+                ScrollViewReader { proxy in
+                    ScrollView {
+                        LazyVStack(alignment: .leading, spacing: 16) {
+                            ForEach(roomDetailVM.timelineEvents.groupedByDay().reversed(), id: \.title) { group in
+                                Text(group.title)
+                                    .font(.caption)
+                                    .foregroundColor(.secondary)
+                                    .padding(.horizontal)
+                                
+                                ForEach(group.events) { event in
+                                    TimelineEventView(event: event)
+                                        .id(event.id)
+                                }
                             }
+                            Color.clear
+                                .frame(height: 1)
+                                .id("bottom")
+                        }
+                        .padding(.vertical)
+                    }
+                    .defaultScrollAnchor(.bottom)
+                    .onAppear {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                            proxy.scrollTo("bottom", anchor: .bottom)
                         }
                     }
-                    .padding(.vertical)
+                    .onChange(of: roomDetailVM.timelineEvents.count) {
+                        withAnimation {
+                            proxy.scrollTo("bottom", anchor: .bottom)
+                        }
+                    }
                 }
             }
         }
