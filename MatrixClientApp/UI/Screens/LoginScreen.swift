@@ -8,8 +8,6 @@
 
 import SwiftUI
 
-import SwiftUI
-
 struct LoginScreen: View {
     @ObservedObject var loginVM: LoginVM = LoginVM()
     @State private var username = "a8ce971b"
@@ -95,4 +93,13 @@ struct LoginScreen: View {
     private func dismissKeyboard() {
         focusedField = nil
     }
+}
+
+#Preview {
+    LoginScreen(
+        loginVM: LoginVM(
+            authenticationManager: DesignAuthenticationManager(),
+            sessionManager: DesignSessionManager()
+        )
+    )
 }

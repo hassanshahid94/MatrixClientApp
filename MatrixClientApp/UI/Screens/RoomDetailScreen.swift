@@ -56,7 +56,6 @@ struct RoomDetailScreen: View {
 
 
 // MARK: - Subviews
-
 private struct LoadingView: View {
     let message: String
     var body: some View {
@@ -95,4 +94,14 @@ private struct JoinRoomView: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
+}
+
+#Preview {
+    RoomDetailScreen(
+        roomDetailVM: RoomDetailVM(
+            roomManager: DesignRoomManager(),
+            messageManager: DesignMessageManager()
+        ),
+        room: PreviewData.sampleRooms.first!
+    )
 }

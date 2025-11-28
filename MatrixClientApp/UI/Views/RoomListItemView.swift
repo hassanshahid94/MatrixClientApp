@@ -28,5 +28,5 @@ struct RoomListItemView: View {
 }
 
 #Preview(traits: .sizeThatFitsLayout) {
-    RoomListItemView(room: PreviewData.sampleRoom)
+    RoomListItemView(room: PreviewData.sampleRooms.first!)
 }

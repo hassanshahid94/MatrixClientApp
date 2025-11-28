@@ -26,6 +26,10 @@
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				"/Localized: Localizable.strings",
+				Design/DesignAuthenticationManager.swift,
+				Design/DesignMessageManager.swift,
+				Design/DesignRoomManager.swift,
+				Design/DesignSessionManager.swift,
 				Extensions/String.swift,
 				Models/JoinedRoomResponse.swift,
 				Models/JoinRoomResponse.swift,

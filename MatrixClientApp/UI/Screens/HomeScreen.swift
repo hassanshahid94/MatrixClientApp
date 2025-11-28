@@ -60,3 +60,12 @@ struct HomeScreen: View {
         }
     }
 }
+
+#Preview {
+    HomeScreen(
+        homeVM: HomeVM(
+            roomManager: DesignRoomManager(),
+            sessionManager: DesignSessionManager()
+        )
+    )
+}
