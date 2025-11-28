@@ -19,15 +19,6 @@ enum TimelineEvent: Identifiable {
             return event.id
         }
     }
-    
-    var timestamp: Int {
-        switch self {
-        case .message(let event):
-            return event.timestamp
-        case .membershipChange(let event):
-            return event.timestamp
-        }
-    }
 }
 
 struct MessageEvent: Identifiable {
@@ -63,5 +54,27 @@ struct MembershipEvent: Identifiable {
         case .invited:
             return "membership_invited".localizedWithFormat(displayName)
         }
+    }
+}
+extension TimelineEvent {
+    var date: Date {
+        switch self {
+        case .message(let msg): return msg.date
+        case .membershipChange(let mem): return mem.date
+        }
+    }
+}
+
+extension Array where Element == TimelineEvent {
+    func groupedByDay() -> [(title: String, events: [TimelineEvent])] {
+        let grouped = Dictionary(grouping: self) { $0.date.dayTitle }
+
+        let sortedKeys = grouped.keys.sorted { key1, key2 in
+            guard let date1 = grouped[key1]?.first?.date,
+                  let date2 = grouped[key2]?.first?.date else { return false }
+            return date1 > date2
+        }
+        
+        return sortedKeys.map { (title: $0, events: grouped[$0] ?? []) }
     }
 }

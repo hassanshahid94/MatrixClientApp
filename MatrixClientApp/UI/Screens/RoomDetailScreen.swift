@@ -31,12 +31,19 @@ struct RoomDetailScreen: View {
             }
             else {
                 ScrollView {
-                    LazyVStack(spacing: 8) {
-                        ForEach(roomDetailVM.timelineEvents.reversed()) { event in
-                            TimelineEventView(event: event)
+                    LazyVStack(alignment: .leading, spacing: 16) {
+                        ForEach(roomDetailVM.timelineEvents.groupedByDay().reversed(), id: \.title) { group in
+                            Text(group.title)
+                                .font(.caption)
+                                .foregroundColor(.secondary)
+                                .padding(.horizontal)
+                            
+                            ForEach(group.events) { event in
+                                TimelineEventView(event: event)
+                            }
                         }
                     }
-                    .padding()
+                    .padding(.vertical)
                 }
             }
         }
