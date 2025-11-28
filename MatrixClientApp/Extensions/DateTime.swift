@@ -13,9 +13,9 @@ extension Date {
         let formatter = DateFormatter()
         
         if calendar.isDateInToday(self) {
-            return "Today"
+            return "today_title".localized
         } else if calendar.isDateInYesterday(self) {
-            return "Yesterday"
+            return "yesterday_title".localized
         } else if calendar.isDate(self, equalTo: Date(), toGranularity: .weekOfYear) {
             formatter.dateFormat = "EEEE"
             return formatter.string(from: self)

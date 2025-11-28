@@ -26,3 +26,5 @@
 "membership_joined" = "%@ joined the room";
 "membership_left" = "%@ left the room";
 "membership_invited" = "%@ was invited to the room";
+"today_title" = "Today";
+"yesterday_title" = "Yesterday";
